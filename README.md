@@ -1,7 +1,7 @@
 # Visa Viz - a Twitter thread explorer made in C++/Wasm/WebGL
 ![Screenshot](screenshot.png)
 
-Once upon a time, I stumbled upon [@visakanv](https://twitter.com/visakanv)'s network of threads, but it was too cumbersome to explore through the official clients. So I built a web app to browse it, but with as little HTML/JS/CSS as I can. It currently contains 2000 threads, 18000 tweets and about as much text as "War and Peace" novel.
+Once upon a time, I stumbled upon [@visakanv](https://twitter.com/visakanv)'s network of threads, but it was too cumbersome to explore through the official clients. So I built a web app to browse it, but with as little HTML/JS/CSS as I can (currently under 4%). It serves 2000 threads, 18000 tweets and about as much text as "War and Peace" novel.
 
 You can try it out at [https://visa-viz-github.io](https://visa-viz-github.io).
 
