@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang=en-us>
+
+<head>
+    <meta charset=utf-8>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+</head>
+
+<body>
+    <canvas id="canvas" style="display:block" tabindex=-1></canvas>
+    <script>
+        document.getElementById("canvas").addEventListener('contextmenu', event => event.preventDefault());
+
+        var Module = {};
+
+        const isCdnEnabled = false; // Set by the build script
+        const cdnBaseUrl = "";
+        if (isCdnEnabled) {
+            Module['locateFile'] = function (path, prefix) {
+                if (path.endsWith(".data")) return `${cdnBaseUrl}/index.data`;
+                if (path.endsWith(".wasm")) return `${cdnBaseUrl}/index.wasm`;
+                return prefix + path;
+            }
+        }
+
+        function binary(url) {
+            if (isCdnEnabled) {
+                url = `${cdnBaseUrl}/${url}`
+            }
+
+            return new Promise((n, r) => {
+                const t = new XMLHttpRequest;
+                t.open("GET", url, !0),
+                    t.responseType = "arraybuffer",
+                    t.onload = () => { n(t.response) },
+                    t.send(null)
+            })
+        }
+
+        function script(e) {
+            return new Promise((n, r) => {
+                const t = document.createElement("script");
+                t.src = e,
+                    t.onload = () => { n() },
+                    document.body.appendChild(t)
+            })
+        }
+
+        Promise.all([binary("index.js"), binary("index.wasm")])
+            .then(e => {
+                Module.wasm = e[1];
+                const n = URL.createObjectURL(new Blob([e[0]], { type: "application/javascript" }));
+                script(n)
+                    .then(() => { URL.revokeObjectURL(n) })
+            })
+
+        window.onhashchange = function () {
+            let hashStr = window.location.hash.substring(1);
+            if (hashStr.match(/^[0-9]+$/)) {
+                Module.ccall("locationHashChangeCallback", null, ["string"], [hashStr]);
+            }
+        }
+    </script>
+</body>
+
+</html>

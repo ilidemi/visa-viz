@@ -1,0 +1,13 @@
+BasedOnStyle: WebKit
+ColumnLimit: 110
+BreakBeforeBraces: Allman
+PointerAlignment: Right
+AlignTrailingComments: false
+AlignAfterOpenBracket: AlwaysBreak
+BreakBeforeBinaryOperators: None
+AlignOperands: false
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AlwaysBreakTemplateDeclarations: Yes
+AllowShortIfStatementsOnASingleLine: Always
